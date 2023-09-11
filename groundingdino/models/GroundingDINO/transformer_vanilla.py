@@ -88,8 +88,10 @@ class TransformerEncoderLayer(nn.Module):
 
         self.norm1 = nn.LayerNorm(d_model)
         self.norm2 = nn.LayerNorm(d_model)
-        self.dropout1 = nn.Dropout(dropout)
-        self.dropout2 = nn.Dropout(dropout)
+        # self.dropout1 = nn.Dropout(dropout)
+        # self.dropout2 = nn.Dropout(dropout)
+        self.dropout1 = nn.Identity()
+        self.dropout2 = nn.Identity()
 
         self.activation = _get_activation_fn(activation)
         self.normalize_before = normalize_before
@@ -112,6 +114,15 @@ class TransformerEncoderLayer(nn.Module):
 
         q = k = self.with_pos_embed(src, pos)
 
+        # from utils.gen_shell import generate
+
+        # generate(
+        #     "pth_mhattn",
+        #     self.self_attn,
+        #     {"query": q, "key": k, "value": src, "attn_mask": src_mask},
+        #     "pth_mhattn",
+        # )
+        # exit(0)
         src2 = self.self_attn(q, k, value=src, attn_mask=src_mask)[0]
 
         # src2 = self.self_attn(q, k, value=src, attn_mask=src_mask, key_padding_mask=src_key_padding_mask)[0]

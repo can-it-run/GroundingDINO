@@ -378,7 +378,7 @@ class BasicLayer(nn.Module):
         self.window_size = window_size
         self.shift_size = window_size // 2
         self.depth = depth
-        self.use_checkpoint = use_checkpoint
+        self.use_checkpoint = False
 
         # build blocks
         self.blocks = nn.ModuleList(
@@ -710,7 +710,7 @@ class SwinTransformer(nn.Module):
         return tuple(outs)
 
     def forward(self, tensor_list: NestedTensor):
-        x = tensor_list.tensors
+        x = tensor_list['tensors']
 
         """Forward function."""
         x = self.patch_embed(x)

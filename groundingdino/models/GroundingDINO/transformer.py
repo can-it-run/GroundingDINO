@@ -459,8 +459,8 @@ class TransformerEncoder(nn.Module):
         self.num_layers = num_layers
         self.d_model = d_model
 
-        self.use_checkpoint = use_checkpoint
-        self.use_transformer_ckpt = use_transformer_ckpt
+        self.use_checkpoint = False
+        self.use_transformer_ckpt = False
 
     @staticmethod
     def get_reference_points(spatial_shapes, valid_ratios, device):
